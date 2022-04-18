@@ -11,6 +11,27 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     You're logged in!
                 </div>
+
+                <div class="p-6 bg-white border-b border-gray-200">
+                    <h3 class="text-xl mb-4">You api tokens</h3>
+                    <ul class="mb-4">
+                        @foreach($tokens as $token)
+                        <li>
+                            <span>{{ $token->name }}: <b>{{ $token->token }}</b></span>
+                            <form method="POST" action="{{ route('token.delete', ['id' => $token->id]) }}">
+                                @method('delete')
+                                <x-button class="text-xs">delete</x-button>
+                            </form>
+                        </li>
+                        @endforeach
+                    </ul>
+
+                    <form method="POST" action="{{ route('token.create') }}">
+                        @csrf
+                        <input type="hidden" name="token_name" value="api">
+                        <x-button class="ml-3">Generate api token</x-button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
