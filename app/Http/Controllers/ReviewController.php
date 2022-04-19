@@ -56,7 +56,15 @@ class ReviewController extends Controller
         }
 
         $data['user_id'] = $request->user()->id;
-        return new JsonResponse(Review::create($data));
+        $review = $request->user()->reviews()->create($data);
+
+        if( $review->parent_id ){
+            broadcast(new \App\Events\AnswerAdded($review));
+        } else {
+            broadcast(new \App\Events\ReviewAdded($review));
+        }
+
+        return new JsonResponse($review);
     }
 
     public function storeAnswer(Request $request, int $id) : Response
