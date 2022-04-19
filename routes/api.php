@@ -23,3 +23,8 @@ Route::post('/login', [AuthenticatedSessionController::class, 'storeApi'])->name
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::middleware('auth:sanctum')->prefix('/')->group(function (Illuminate\Routing\Router $route){
+    $route->apiResource('reviews', \App\Http\Controllers\ReviewController::class, ['only' => ['index', 'show', 'store']])->where(['review' => '\d+']);
+    $route->post('reviews/{id}', [\App\Http\Controllers\ReviewController::class, 'storeAnswer'])->where('id', '\d+');
+});

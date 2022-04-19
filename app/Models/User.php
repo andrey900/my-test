@@ -41,4 +41,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function reviews()
+    {
+        return $this->hasMany(\App\Models\Review::class, 'id', 'user_id');
+    }
+
+    public function isAdmin()
+    {
+        return $this->id === 1;
+    }
 }
