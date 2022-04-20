@@ -58,7 +58,12 @@ class RegisteredUserController extends Controller
      */
     public function storeApi(Request $request) : Response
     {
-        $validator = Validator::make($request->all(), [
+        $data = $request->json()->toArray();
+        if( !$data ){
+            $data = $request->all();
+        }
+
+        $validator = Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],

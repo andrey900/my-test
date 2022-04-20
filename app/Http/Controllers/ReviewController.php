@@ -33,7 +33,11 @@ class ReviewController extends Controller
      */
     public function store(Request $request) : Response
     {
-        $data = $request->all();
+        $data = $request->json()->all();
+        if( !$data ){
+            $data = $request->all();
+        }
+
         $validator = Validator::make($data, [
             'review' => 'required',
             'parent_id' => [
@@ -69,7 +73,11 @@ class ReviewController extends Controller
 
     public function storeAnswer(Request $request, int $id) : Response
     {
-        $request['parent_id'] = $id;
+        if( $request->isJson() ){
+            $request->json()->set('parent_id', $id);
+        } else {
+            $request['parent_id'] = $id;
+        }
         return $this->store($request);
     }
 
