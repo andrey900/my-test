@@ -18,7 +18,7 @@ Open in websocket console [http://localhost/laravel-websockets](http://localhost
 
 ``POST: /api/login`` - login user, get authorization token
 
-### Usage authorization token
+### Usage authorization token (bearer authorization)
 ``GET: /api/reviews`` - get all paginated reviews
 
 ``POST: /api/reviews`` - add new review (fields: `review`)
