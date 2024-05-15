@@ -1,7 +1,7 @@
 ## How start
 ```
-git clone https://github.com/andrey900/naveksoft-test.git
-cd naveksoft-test
+git clone https://github.com/andrey900/my-test.git
+cd my-test
 composer install
 ./vendor/bin/sail up -d
 ./vendor/bin/sail artisan migrate
